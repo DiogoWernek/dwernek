@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="./support.js"></script>
+  </head>
+  <body>
+    <x-dc>
+      <helmet data-dc-atomics>
+        <link
+          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap"
+          rel="stylesheet"
+        />
+        <style>
+          * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+          }
+          html {
+            scroll-behavior: smooth;
+          }
+          body {
+            overflow-x: hidden;
+            cursor: none;
+          }
+          * {
+            cursor: none !important;
+          }
+          ::selection {
+            background: rgba(22, 163, 74, 0.25);
+          }
+          ::-webkit-scrollbar {
+            width: 6px;
+          }
+          ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+          }
+          @keyframes blink {
+            0%,
+            100% {
+              opacity: 1;
+            }
+            50% {
+              opacity: 0;
+            }
+          }
+          @keyframes fadeUp {
+            from {
+              opacity: 0;
+              transform: translateY(14px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          #portfolio-root {
+            --t-page: #e8e8e2;
+            --t-win: #ffffff;
+            --t-bar: #f3f3f3;
+            --t-border: #e0e0e0;
+            --t-sep: #f2f2f2;
+            --t-txt: #171717;
+            --t-muted: #4b5563;
+            --t-dim: #aaa;
+            --t-dimmer: #bbb;
+            --t-faint: #ccc;
+            --t-hover: #fafafa;
+            --t-card: #fafafa;
+            --t-card-bd: #f0f0f0;
+            --t-tag-bg: #f5f5f5;
+            --t-tag-bd: #eee;
+            --t-lbl-bg: rgba(255, 255, 255, 0.97);
+            --t-lbl-bd: rgba(22, 163, 74, 0.4);
+            --t-shadow: 0 8px 48px rgba(0, 0, 0, 0.13);
+            --t-grn: #16a34a;
+            --t-blue: #2563eb;
+            transition: background 0.25s;
+          }
+          #portfolio-root.dark-mode {
+            --t-page: #0d1117;
+            --t-win: #0d1117;
+            --t-bar: #161b22;
+            --t-border: #30363d;
+            --t-sep: #21262d;
+            --t-txt: #e6edf3;
+            --t-muted: #8b949e;
+            --t-dim: #6e7681;
+            --t-dimmer: #6e7681;
+            --t-faint: #484f58;
+            --t-hover: #161b22;
+            --t-card: #0d1117;
+            --t-card-bd: #30363d;
+            --t-tag-bg: #21262d;
+            --t-tag-bd: #30363d;
+            --t-lbl-bg: rgba(22, 27, 34, 0.97);
+            --t-lbl-bd: rgba(22, 163, 74, 0.5);
+            --t-shadow: 0 8px 48px rgba(0, 0, 0, 0.5);
+            --t-grn: #3fb950;
+            --t-blue: #58a6ff;
+          }
+        </style>
+      </helmet>
+
+      <!-- cursor -->
+      <div
+        id="c-dot"
+        style="
+          position: fixed;
+          left: -99px;
+          top: -99px;
+          width: 12px;
+          height: 12px;
+          border: 2px solid var(--t-grn, #16a34a);
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+          z-index: 9999;
+          transition: transform 0.08s;
+        "
+      ></div>
+      <div
+        id="c-lbl"
+        style="
+          position: fixed;
+          left: -99px;
+          top: -99px;
+          transform: translate(14px, -50%);
+          pointer-events: none;
+          z-index: 9999;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 10px;
+          color: var(--t-grn, #16a34a);
+          background: var(--t-lbl-bg, rgba(255, 255, 255, 0.97));
+          border: 1px solid var(--t-lbl-bd, rgba(22, 163, 74, 0.4));
+          padding: 2px 8px;
+          border-radius: 3px;
+          white-space: nowrap;
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+          letter-spacing: 0.04em;
+          transition: background 0.25s, border-color 0.25s, color 0.25s;
+        "
+      ></div>
+
+      <div
+        id="portfolio-root"
+        style="
+          min-height: 100vh;
+          padding: 32px 20px 80px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          background: var(--t-page);
+          transition: background 0.25s;
+        "
+      >
+        <div
+          style="
+            width: 100%;
+            max-width: 860px;
+            background: var(--t-win);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--t-shadow);
+            border: 1px solid var(--t-border);
+            transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+          "
+        >
+          <!-- TITLE BAR -->
+          <div
+            style="
+              height: 40px;
+              background: var(--t-bar);
+              border-bottom: 1px solid var(--t-border);
+              display: flex;
+              align-items: center;
+              padding: 0 16px;
+              flex-shrink: 0;
+              transition: background 0.25s, border-color 0.25s;
+            "
+          >
+            <div style="display: flex; gap: 6px; margin-right: 16px">
+              <div
+                style="
+                  width: 12px;
+                  height: 12px;
+                  border-radius: 50%;
+                  background: #fc5f57;
+                "
+              ></div>
+              <div
+                style="
+                  width: 12px;
+                  height: 12px;
+                  border-radius: 50%;
+                  background: #febc2e;
+                "
+              ></div>
+              <div
+                style="
+                  width: 12px;
+                  height: 12px;
+                  border-radius: 50%;
+                  background: #28c840;
+                "
+              ></div>
+            </div>
+            <span
+              style="
+                flex: 1;
+                text-align: center;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 12px;
+                color: var(--t-dim);
+                margin-left: -70px;
+                transition: color 0.25s;
+              "
+              >wernek@portfolio: ~</span
+            >
+            <div style="display: flex; align-items: center; gap: 6px">
+              <button
+                id="theme-btn"
+                data-cursor="toggle theme"
+                style="
+                  border: 1px solid var(--t-border);
+                  background: none;
+                  color: var(--t-dim);
+                  padding: 2px 9px;
+                  border-radius: 3px;
+                  font-family: 'JetBrains Mono', monospace;
+                  font-size: 11px;
+                  letter-spacing: 0.04em;
+                  transition: all 0.2s;
+                  line-height: 1.4;
+                "
+                style-hover="border-color:var(--t-grn,#16a34a);color:var(--t-grn,#16a34a);"
+              >
+                {{ themeIcon }}
+              </button>
+              <button
+                id="lang-btn"
+                data-cursor="switch language"
+                style="
+                  border: 1px solid var(--t-grn, #16a34a);
+                  background: none;
+                  color: var(--t-grn, #16a34a);
+                  padding: 2px 9px;
+                  border-radius: 3px;
+                  font-family: 'JetBrains Mono', monospace;
+                  font-size: 10px;
+                  letter-spacing: 0.06em;
+                  transition: color 0.25s, border-color 0.25s;
+                "
+              >
+                {{ langLabel }}
+              </button>
+            </div>
+          </div>
+
+          <!-- TERMINAL BODY -->
+          <div
+            style="
+              padding: 36px 40px 60px;
+              font-family: 'JetBrains Mono', monospace;
+              font-size: 13px;
+              line-height: 1.95;
+              transition: background 0.25s;
+            "
+          >
+            <!-- HERO -->
+            <div
+              id="s-hero"
+              data-section="hero"
+              data-screen-label="Hero"
+              style="margin-bottom: 56px"
+            >
+              <div id="tw-output"></div>
+              <div style="display: flex; align-items: center; margin-top: 2px">
+                <span
+                  style="
+                    color: var(--t-grn);
+                    font-weight: 600;
+                    transition: color 0.25s;
+                  "
+                  >wernek@portfolio</span
+                >
+                <span style="color: var(--t-dim); transition: color 0.25s"
+                  >:</span
+                >
+                <span style="color: var(--t-blue); transition: color 0.25s"
+                  >~</span
+                >
+                <span style="color: var(--t-txt); transition: color 0.25s"
+                  >$
+                </span>
+                <span
+                  style="
+                    width: 8px;
+                    height: 15px;
+                    background: var(--t-txt);
+                    display: inline-block;
+                    animation: blink 1s step-end infinite;
+                    margin-left: 2px;
+                    transition: background 0.25s;
+                  "
+                ></span>
+              </div>
+            </div>
+
+            <!-- ABOUT -->
+            <div
+              id="s-about"
+              data-section="about"
+              data-screen-label="About"
+              style="
+                margin-bottom: 52px;
+                padding-bottom: 52px;
+                border-bottom: 1px solid var(--t-sep);
+                transition: border-color 0.25s;
+              "
+            >
+              <div
+                style="display: flex; align-items: center; margin-bottom: 12px"
+              >
+                <span
+                  style="
+                    color: var(--t-grn);
+                    font-weight: 600;
+                    transition: color 0.25s;
+                  "
+                  >wernek@portfolio</span
+                ><span style="color: var(--t-dim); transition: color 0.25s"
+                  >:</span
+                ><span style="color: var(--t-blue); transition: color 0.25s"
+                  >~</span
+                ><span style="color: var(--t-txt); transition: color 0.25s"
+                  >$ cat ./about.txt</span
+                >
+              </div>
+              <div
+                style="
+                  color: var(--t-muted);
+                  line-height: 2;
+                  max-width: 600px;
+                  transition: color 0.25s;
+                "
+              >
+                <p>{{ about1 }}</p>
+                <p style="margin-top: 4px">{{ about2 }}</p>
+                <p style="margin-top: 4px">{{ about3 }}</p>
+              </div>
+              <pre
+                style="
+                  margin-top: 28px;
+                  font-size: 10.5px;
+                  line-height: 1.6;
+                  color: var(--t-faint);
+                  letter-spacing: 0.1em;
+                  user-select: none;
+                  transition: color 0.25s;
+                "
+              >
+╔══════════════════════╗
+║  Diogo A. WERNEK     ║
+║  Full Stack Dev      ║
+║  ─────────────────   ║
+║  React   TypeScript  ║
+║  Node.js   Python    ║
+║  Docker    MySQL     ║
+╚══════════════════════╝</pre
+              >
+            </div>
+
+            <!-- SKILLS -->
+            <div
+              id="s-skills"
+              data-section="skills"
+              data-screen-label="Skills"
+              style="
+                margin-bottom: 52px;
+                padding-bottom: 52px;
+                border-bottom: 1px solid var(--t-sep);
+                transition: border-color 0.25s;
+              "
+            >
+              <div
+                style="display: flex; align-items: center; margin-bottom: 18px"
+              >
+                <span
+                  style="
+                    color: var(--t-grn);
+                    font-weight: 600;
+                    transition: color 0.25s;
+                  "
+                  >wernek@portfolio</span
+                ><span style="color: var(--t-dim); transition: color 0.25s"
+                  >:</span
+                ><span style="color: var(--t-blue); transition: color 0.25s"
+                  >~</span
+                ><span style="color: var(--t-txt); transition: color 0.25s"
+                  >$ ./skills --list --verbose</span
+                >
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 10px">
+                <sc-for list="{{ skills }}" as="sk" hint-placeholder-count="6">
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 14px;
+                      font-size: 12px;
+                    "
+                  >
+                    <span
+                      style="
+                        color: var(--t-grn);
+                        flex-shrink: 0;
+                        transition: color 0.25s;
+                      "
+                      >▸</span
+                    >
+                    <span
+                      style="
+                        color: var(--t-txt);
+                        min-width: 120px;
+                        font-weight: 500;
+                        transition: color 0.25s;
+                      "
+                      >{{ sk.name }}</span
+                    >
+                    <span
+                      style="
+                        color: var(--t-grn);
+                        letter-spacing: 0.04em;
+                        flex-shrink: 0;
+                        font-size: 13px;
+                        transition: color 0.25s;
+                      "
+                      >{{ sk.bar }}</span
+                    >
+                    <span
+                      style="
+                        color: var(--t-dim);
+                        font-size: 11px;
+                        transition: color 0.25s;
+                      "
+                      >{{ sk.level }}</span
+                    >
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <!-- PROJECTS -->
+            <div
+              id="s-projects"
+              data-section="projects"
+              data-screen-label="Projects"
+              style="
+                margin-bottom: 52px;
+                padding-bottom: 52px;
+                border-bottom: 1px solid var(--t-sep);
+                transition: border-color 0.25s;
+              "
+            >
+              <div
+                style="display: flex; align-items: center; margin-bottom: 18px"
+              >
+                <span
+                  style="
+                    color: var(--t-grn);
+                    font-weight: 600;
+                    transition: color 0.25s;
+                  "
+                  >wernek@portfolio</span
+                ><span style="color: var(--t-dim); transition: color 0.25s"
+                  >:</span
+                ><span style="color: var(--t-blue); transition: color 0.25s"
+                  >~</span
+                ><span style="color: var(--t-txt); transition: color 0.25s"
+                  >$ ls -la ./projects/</span
+                >
+              </div>
+              <div style="display: flex; flex-direction: column">
+                <div
+                  style="
+                    display: grid;
+                    grid-template-columns: 120px 1fr auto;
+                    gap: 12px;
+                    padding: 6px 0;
+                    border-bottom: 1px solid var(--t-sep);
+                    font-size: 10px;
+                    color: var(--t-dimmer);
+                    letter-spacing: 0.04em;
+                    transition: color 0.25s, border-color 0.25s;
+                  "
+                >
+                  <span>permissions</span>
+                  <span>name &amp; description</span>
+                  <span>stack</span>
+                </div>
+                <sc-for list="{{ projects }}" as="p" hint-placeholder-count="4">
+                  <div
+                    data-cursor="→ cat {{ p.slug }}/readme.md"
+                    style="
+                      display: grid;
+                      grid-template-columns: 120px 1fr auto;
+                      gap: 12px;
+                      padding: 10px 0;
+                      border-bottom: 1px solid var(--t-sep);
+                      border-radius: 3px;
+                      transition: background 0.15s, border-color 0.25s;
+                    "
+                    style-hover="background:var(--t-hover);"
+                  >
+                    <span
+                      style="
+                        color: var(--t-grn);
+                        font-size: 11px;
+                        align-self: start;
+                        padding-top: 3px;
+                        transition: color 0.25s;
+                      "
+                      >drwxr-xr-x</span
+                    >
+                    <div>
+                      <p
+                        style="
+                          color: var(--t-blue);
+                          font-weight: 500;
+                          transition: color 0.25s;
+                        "
+                      >
+                        {{ p.slug }}/
+                      </p>
+                      <p
+                        style="
+                          color: var(--t-dim);
+                          font-size: 11px;
+                          margin-top: 2px;
+                          transition: color 0.25s;
+                        "
+                      >
+                        {{ p.desc }}
+                      </p>
+                    </div>
+                    <div
+                      style="
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 4px;
+                        align-items: flex-start;
+                        max-width: 180px;
+                        justify-content: flex-end;
+                      "
+                    >
+                      <sc-for list="{{ p.stack }}" as="t">
+                        <span
+                          style="
+                            font-size: 10px;
+                            padding: 1px 6px;
+                            background: var(--t-tag-bg);
+                            border: 1px solid var(--t-tag-bd);
+                            border-radius: 2px;
+                            color: var(--t-muted);
+                            white-space: nowrap;
+                            transition: background 0.25s, border-color 0.25s,
+                              color 0.25s;
+                          "
+                          >{{ t }}</span
+                        >
+                      </sc-for>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <!-- EXPERIENCE -->
+            <div
+              id="s-exp"
+              data-section="experience"
+              data-screen-label="Experience"
+              style="
+                margin-bottom: 52px;
+                padding-bottom: 52px;
+                border-bottom: 1px solid var(--t-sep);
+                transition: border-color 0.25s;
+              "
+            >
+              <div
+                style="display: flex; align-items: center; margin-bottom: 18px"
+              >
+                <span
+                  style="
+                    color: var(--t-grn);
+                    font-weight: 600;
+                    transition: color 0.25s;
+                  "
+                  >wernek@portfolio</span
+                ><span style="color: var(--t-dim); transition: color 0.25s"
+                  >:</span
+                ><span style="color: var(--t-blue); transition: color 0.25s"
+                  >~</span
+                ><span style="color: var(--t-txt); transition: color 0.25s"
+                  >$ git log --all --oneline --author="diogo"</span
+                >
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 18px">
+                <sc-for
+                  list="{{ experience }}"
+                  as="job"
+                  hint-placeholder-count="2"
+                >
+                  <div style="display: flex; gap: 16px">
+                    <span
+                      style="
+                        color: var(--t-dim);
+                        font-size: 11px;
+                        min-width: 66px;
+                        flex-shrink: 0;
+                        padding-top: 2px;
+                        letter-spacing: 0.02em;
+                        transition: color 0.25s;
+                      "
+                      >{{ job.hash }}</span
+                    >
+                    <div>
+                      <p
+                        style="
+                          color: var(--t-txt);
+                          font-weight: 500;
+                          font-size: 13px;
+                          margin-bottom: 3px;
+                          transition: color 0.25s;
+                        "
+                      >
+                        {{ job.msg }}
+                      </p>
+                      <p
+                        style="
+                          color: var(--t-grn);
+                          font-size: 12px;
+                          margin-bottom: 7px;
+                          transition: color 0.25s;
+                        "
+                      >
+                        {{ job.company }} · {{ job.period }}
+                      </p>
+                      <p
+                        style="
+                          color: var(--t-muted);
+                          font-size: 12px;
+                          line-height: 1.75;
+                          max-width: 560px;
+                          text-wrap: pretty;
+                          transition: color 0.25s;
+                        "
+                      >
+                        {{ job.desc }}
+                      </p>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <!-- CONTACT -->
+            <div
+              id="s-contact"
+              data-section="contact"
+              data-screen-label="Contact"
+            >
+              <div
+                style="display: flex; align-items: center; margin-bottom: 16px"
+              >
+                <span
+                  style="
+                    color: var(--t-grn);
+                    font-weight: 600;
+                    transition: color 0.25s;
+                  "
+                  >wernek@portfolio</span
+                ><span style="color: var(--t-dim); transition: color 0.25s"
+                  >:</span
+                ><span style="color: var(--t-blue); transition: color 0.25s"
+                  >~</span
+                ><span style="color: var(--t-txt); transition: color 0.25s"
+                  >$ cat ./contact.json</span
+                >
+              </div>
+              <div
+                style="
+                  background: var(--t-card);
+                  border: 1px solid var(--t-card-bd);
+                  border-radius: 8px;
+                  padding: 22px;
+                  font-size: 13px;
+                  line-height: 2.1;
+                  max-width: 480px;
+                  transition: background 0.25s, border-color 0.25s;
+                "
+              >
+                <p>
+                  <span style="color: var(--t-dim); transition: color 0.25s"
+                    >{</span
+                  >
+                </p>
+                <p style="padding-left: 22px">
+                  <span style="color: var(--t-blue); transition: color 0.25s"
+                    >"email"</span
+                  ><span style="color: var(--t-dim); transition: color 0.25s"
+                    >: </span
+                  ><a
+                    href="/cdn-cgi/l/email-protection#1175787e767e517469707c617d743f727e7c"
+                    data-cursor="→ send email"
+                    style="
+                      color: var(--t-grn);
+                      text-decoration: none;
+                      transition: color 0.25s;
+                    "
+                    style-hover="text-decoration:underline;"
+                    target="_blank"
+                    >"<span
+                      class="__cf_email__"
+                      data-cfemail="45212c2a222a05203d24283529206b262a28"
+                      >[email&#160;protected]</span
+                    >"</a
+                  ><span style="color: var(--t-dim); transition: color 0.25s"
+                    >,</span
+                  >
+                </p>
+                <p style="padding-left: 22px">
+                  <span style="color: var(--t-blue); transition: color 0.25s"
+                    >"github"</span
+                  ><span style="color: var(--t-dim); transition: color 0.25s"
+                    >: </span
+                  ><a
+                    href="https://github.com/DiogoWernek"
+                    data-cursor="→ github"
+                    style="
+                      color: var(--t-grn);
+                      text-decoration: none;
+                      transition: color 0.25s;
+                    "
+                    style-hover="text-decoration:underline;"
+                    target="_blank"
+                    >"@DiogoWernek"</a
+                  ><span style="color: var(--t-dim); transition: color 0.25s"
+                    >,</span
+                  >
+                </p>
+                <p style="padding-left: 22px">
+                  <span style="color: var(--t-blue); transition: color 0.25s"
+                    >"linkedin"</span
+                  ><span style="color: var(--t-dim); transition: color 0.25s"
+                    >: </span
+                  ><a
+                    href="https://www.linkedin.com/in/diogowernek/"
+                    data-cursor="→ linkedin"
+                    style="
+                      color: var(--t-grn);
+                      text-decoration: none;
+                      transition: color 0.25s;
+                    "
+                    style-hover="text-decoration:underline;"
+                    target="_blank"
+                    >"Diogo Araujo Wernek"</a
+                  >
+                </p>
+                <p>
+                  <span style="color: var(--t-dim); transition: color 0.25s"
+                    >}</span
+                  >
+                </p>
+              </div>
+              <p
+                style="
+                  margin-top: 52px;
+                  text-align: center;
+                  font-size: 11px;
+                  color: var(--t-faint);
+                  letter-spacing: 0.04em;
+                  transition: color 0.25s;
+                "
+              >
+                // Diogo Araujo Wernek · {{ year }} · made with ❤️ &amp; coffee
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </x-dc>
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script type="text/x-dc" data-dc-script>
+      class Component extends DCLogic {
+        state = { lang: 'en', dark: false };
+        _twToken = 0;
+        _lastLang = 'en';
+        _titleToken = 0;
+        _origTitle = null;
+
+        componentDidMount() {
+          const dot  = document.getElementById('c-dot');
+          const lbl  = document.getElementById('c-lbl');
+          const root = document.getElementById('portfolio-root');
+          document.body.style.cursor = 'none';
+          let curSection = 'hero';
+
+          // ── Cursor tracking
+          document.addEventListener('mousemove', e => {
+            if (!dot || !lbl) return;
+            const x = e.clientX, y = e.clientY;
+            dot.style.left = x + 'px'; dot.style.top = y + 'px';
+            lbl.style.left = x + 'px'; lbl.style.top = y + 'px';
+            const el  = document.elementFromPoint(x, y);
+            const ctx = el && el.closest('[data-cursor]');
+            lbl.textContent = ctx ? ctx.getAttribute('data-cursor') : '[ ' + curSection + ' ]';
+          });
+
+          // ── Section tracker (fires when a section crosses the viewport's vertical center,
+          // so it works regardless of how tall a given section is)
+          const secIO = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+              if (e.isIntersecting) curSection = e.target.getAttribute('data-section') || 'hero';
+            });
+          }, { threshold: 0, rootMargin: '-50% 0px -50% 0px' });
+          document.querySelectorAll('[data-section]').forEach(s => secIO.observe(s));
+
+          // ── Lang toggle
+          document.getElementById('lang-btn')?.addEventListener('click', () => {
+            this.setState(s => ({ lang: s.lang === 'en' ? 'pt' : 'en' }));
+          });
+
+          // ── Dark mode toggle
+          document.getElementById('theme-btn')?.addEventListener('click', () => {
+            this.setState(s => {
+              const next = !s.dark;
+              if (root) root.classList.toggle('dark-mode', next);
+              return { dark: next };
+            });
+          });
+
+          // ── Scroll reveal
+          const rIO = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+              if (e.isIntersecting) {
+                e.target.style.opacity  = '1';
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.transition = 'opacity .5s ease, transform .5s ease';
+              }
+            });
+          }, { threshold: 0.05 });
+          ['s-about','s-skills','s-projects','s-exp','s-contact'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) { el.style.opacity = '0'; el.style.transform = 'translateY(16px)'; rIO.observe(el); }
+          });
+
+          this._typewriter();
+          this._animateTitle();
+        }
+
+        componentWillUnmount() {
+          this._titleToken = (this._titleToken || 0) + 1;
+          if (this._origTitle != null) document.title = this._origTitle;
+        }
+
+        _animateTitle() {
+          const word = 'wernek';
+          const token = ++this._titleToken;
+          if (this._origTitle == null) this._origTitle = document.title;
+
+          const typeLoop = (i = 0) => {
+            if (token !== this._titleToken) return;
+            document.title = word.slice(0, i);
+            if (i < word.length) setTimeout(() => typeLoop(i + 1), 160);
+            else setTimeout(() => eraseLoop(word.length), 1200);
+          };
+          const eraseLoop = (i) => {
+            if (token !== this._titleToken) return;
+            document.title = word.slice(0, i);
+            if (i > 0) setTimeout(() => eraseLoop(i - 1), 100);
+            else setTimeout(() => typeLoop(0), 500);
+          };
+          typeLoop(0);
+        }
+
+        componentDidUpdate() {
+          if (this._lastLang !== this.state.lang) {
+            this._lastLang = this.state.lang;
+            this._typewriter();
+          }
+        }
+
+        _typewriter() {
+          const out = document.getElementById('tw-output');
+          if (!out) return;
+          out.innerHTML = '';
+          const runToken = ++this._twToken;
+          const en = this.state.lang === 'en';
+          const lines = [
+            { type: 'cmd', text: 'whoami' },
+            { type: 'out', text: 'Diogo Araujo Wernek - Full Stack Developer' },
+            { type: 'cmd', text: en ? 'cat ./motto.txt' : 'cat ./lema.txt' },
+            { type: 'out', text: en ? 'Building apps that ship. Productivity at scale.' : 'Construindo aplicações que funcionam. Produtividade em escala.' },
+            { type: 'cmd', text: 'node --version && python3 --version' },
+            { type: 'out', text: 'v20.11.0  |  Python 3.12.0' },
+            { type: 'cmd', text: en ? 'skills --list' : 'habilidades --listar' },
+            { type: 'out', text: '⚡ React   TypeScript   Node.js   Python   Docker   MySQL' },
+          ];
+          let li = 0, ci = 0, cur = null;
+          const isDark = () => document.getElementById('portfolio-root')?.classList.contains('dark-mode');
+
+          const mkPrompt = () => {
+            const d = document.createElement('div');
+            d.style.cssText = 'display:flex;align-items:center;';
+            d.innerHTML = '<span style="color:var(--t-grn);font-weight:600;transition:color .25s;">wernek@portfolio</span>'
+              + '<span style="color:var(--t-dim);transition:color .25s;">:</span>'
+              + '<span style="color:var(--t-blue);transition:color .25s;">~</span>'
+              + '<span style="color:var(--t-txt);transition:color .25s;">$ </span>';
+            return d;
+          };
+
+          const step = () => {
+            if (runToken !== this._twToken) return;
+            if (li >= lines.length) return;
+            const line = lines[li];
+            if (line.type === 'cmd') {
+              if (ci === 0) {
+                cur = mkPrompt();
+                const sp = document.createElement('span');
+                sp.style.cssText = 'color:var(--t-txt);transition:color .25s;';
+                cur.appendChild(sp);
+                out.appendChild(cur);
+              }
+              cur.lastChild.textContent = line.text.slice(0, ci);
+              ci++;
+              if (ci <= line.text.length) setTimeout(step, 32 + Math.random() * 38);
+              else { li++; ci = 0; setTimeout(step, 220); }
+            } else {
+              if (ci === 0) {
+                cur = document.createElement('div');
+                cur.style.cssText = 'color:var(--t-muted);margin-bottom:8px;transition:color .25s;';
+                out.appendChild(cur);
+              }
+              cur.textContent = line.text.slice(0, ci);
+              ci++;
+              if (ci <= line.text.length) setTimeout(step, 11);
+              else { li++; ci = 0; setTimeout(step, 320); }
+            }
+          };
+          setTimeout(step, 700);
+        }
+
+        renderVals() {
+          const { lang, dark } = this.state;
+          const en = lang === 'en';
+          return {
+            langLabel:  en ? 'PT' : 'EN',
+            themeIcon:  dark ? '☀ light' : '☾ dark',
+            year: new Date().getFullYear(),
+            about1: en  ? 'Born in Brazil. Passionate about software that actually works.'
+                        : 'Nascido no Brasil. Apaixonado por software que realmente funciona.',
+            about2: en  ? 'Specializing in scalable full-stack apps. Clean code, real impact.'
+                        : 'Especializado em apps full-stack. Clean code, impacto real.',
+            about3: en  ? "Open to new opportunities. Let's build something great."
+                        : 'Aberto a novas oportunidades. Vamos construir algo incrível.',
+            skills: [
+              { name: 'React',      bar: '████████░░', level: 'expert' },
+              { name: 'TypeScript', bar: '████████░░', level: 'expert' },
+              { name: 'Node.js',    bar: '███████░░░', level: en ? 'advanced'     : 'avançado' },
+              { name: 'Python',     bar: '█████░░░░░', level: en ? 'intermediate' : 'intermediário' },
+              { name: 'Docker',     bar: '█████░░░░░', level: en ? 'intermediate' : 'intermediário' },
+              { name: 'MySQL',      bar: '█████░░░░░', level: en ? 'intermediate' : 'intermediário' },
+            ],
+            projects: [
+              { slug: 'e-commerce-platform',
+                desc:  en ? 'Scalable store with real-time inventory and payments.'    : 'Loja escalável com inventário em tempo real e pagamentos.',
+                stack: ['React','Node.js','MySQL'] },
+              { slug: 'devops-dashboard',
+                desc:  en ? 'Infrastructure monitoring and CI/CD pipeline manager.'    : 'Monitoramento de infraestrutura e gerenciador CI/CD.',
+                stack: ['TypeScript','Docker','Python'] },
+              { slug: 'analytics-api',
+                desc:  en ? 'High-performance data processing pipeline.'               : 'Pipeline de processamento de dados de alta performance.',
+                stack: ['Python','MySQL','Docker'] },
+              { slug: 'task-automator',
+                desc:  en ? 'CLI tool for workflow automation - productivity +40%.'    : 'CLI para automação de workflow - produtividade +40%.',
+                stack: ['Node.js','TypeScript'] },
+            ],
+            experience: [
+              { hash: 'a1b2c3d',
+                msg:     en ? 'feat: join as Full Stack Developer'  : 'feat: ingressar como Dev Full Stack',
+                company: en ? 'Tech Company'                        : 'Empresa Tech',
+                period: '2023 – Present',
+                desc:   en ? 'Scalable React + Node.js apps. Led microservices migration - latency −60%.'
+                           : 'Apps React + Node.js escaláveis. Migração para microsserviços - latência −60%.' },
+              { hash: 'e4f5g6h',
+                msg:     en ? 'feat: first developer role'          : 'feat: primeiro cargo de desenvolvedor',
+                company: 'Startup',
+                period:  '2021 – 2023',
+                desc:   en ? 'REST APIs with Node.js and Python. React frontend, MySQL database for a growing SaaS.'
+                           : 'APIs REST com Node.js e Python. Frontend React e MySQL para SaaS em crescimento.' },
+            ],
+          };
+        }
+      }
+    </script>
+  </body>
+</html>
