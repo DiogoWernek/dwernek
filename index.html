@@ -23,10 +23,22 @@
           }
           body {
             overflow-x: hidden;
-            cursor: none;
           }
-          * {
-            cursor: none !important;
+          #c-dot,
+          #c-lbl {
+            display: none;
+          }
+          @media (hover: hover) and (pointer: fine) {
+            body {
+              cursor: none;
+            }
+            * {
+              cursor: none !important;
+            }
+            #c-dot,
+            #c-lbl {
+              display: block;
+            }
           }
           ::selection {
             background: rgba(22, 163, 74, 0.25);
@@ -102,6 +114,108 @@
             --t-grn: #3fb950;
             --t-blue: #58a6ff;
           }
+
+          /* ── Responsive overrides */
+          @media (max-width: 660px) {
+            .t-outer {
+              padding: 10px 8px 48px !important;
+            }
+            .t-win {
+              border-radius: 8px !important;
+            }
+            .t-titlebar {
+              padding: 0 10px !important;
+            }
+            .t-center-lbl {
+              display: none !important;
+            }
+            .t-btns {
+              gap: 4px !important;
+            }
+            .t-btn {
+              font-size: 9px !important;
+              padding: 1px 5px !important;
+            }
+            .t-body {
+              padding: 20px 16px 36px !important;
+              font-size: 12px !important;
+            }
+            .t-prompt {
+              flex-wrap: wrap !important;
+              font-size: 11px !important;
+            }
+            .t-proj-hdr {
+              display: none !important;
+            }
+            .t-proj-row {
+              grid-template-columns: 1fr !important;
+              gap: 4px !important;
+              padding: 12px 0 !important;
+            }
+            .t-proj-perm {
+              display: none !important;
+            }
+            .t-proj-tags {
+              max-width: 100% !important;
+              justify-content: flex-start !important;
+              margin-top: 8px !important;
+            }
+            .t-skill-row {
+              gap: 8px !important;
+            }
+            .t-skill-name {
+              min-width: 90px !important;
+            }
+            .t-skill-bar {
+              font-size: 11px !important;
+              letter-spacing: 0.02em !important;
+            }
+            .t-skill-level {
+              display: none !important;
+            }
+            .t-exp-row {
+              gap: 10px !important;
+            }
+            .t-exp-hash {
+              font-size: 10px !important;
+              min-width: 52px !important;
+            }
+            .t-exp-highlights {
+              font-size: 11px !important;
+            }
+            .t-contact-card {
+              padding: 14px !important;
+            }
+            .t-cv-btn {
+              width: 100% !important;
+              justify-content: center !important;
+            }
+            .t-ascii {
+              font-size: 9px !important;
+              letter-spacing: 0.06em !important;
+            }
+            .t-hero-mb {
+              margin-bottom: 36px !important;
+            }
+            .t-section-mb {
+              margin-bottom: 32px !important;
+              padding-bottom: 32px !important;
+            }
+          }
+          @media (min-width: 661px) and (max-width: 860px) {
+            .t-outer {
+              padding: 20px 14px 60px !important;
+            }
+            .t-body {
+              padding: 28px 28px 50px !important;
+            }
+            .t-proj-row {
+              grid-template-columns: 100px 1fr auto !important;
+            }
+            .t-proj-tags {
+              max-width: 140px !important;
+            }
+          }
         </style>
       </helmet>
 
@@ -147,6 +261,7 @@
 
       <div
         id="portfolio-root"
+        class="t-outer"
         style="
           min-height: 100vh;
           padding: 32px 20px 80px;
@@ -158,6 +273,7 @@
         "
       >
         <div
+          class="t-win"
           style="
             width: 100%;
             max-width: 860px;
@@ -171,6 +287,7 @@
         >
           <!-- TITLE BAR -->
           <div
+            class="t-titlebar"
             style="
               height: 40px;
               background: var(--t-bar);
@@ -209,6 +326,7 @@
               ></div>
             </div>
             <span
+              class="t-center-lbl"
               style="
                 flex: 1;
                 text-align: center;
@@ -220,9 +338,10 @@
               "
               >wernek@portfolio: ~</span
             >
-            <div style="display: flex; align-items: center; gap: 6px">
+            <div class="t-btns" style="display: flex; align-items: center; gap: 6px">
               <button
                 id="theme-btn"
+                class="t-btn"
                 data-cursor="toggle theme"
                 style="
                   border: 1px solid var(--t-border);
@@ -242,6 +361,7 @@
               </button>
               <button
                 id="lang-btn"
+                class="t-btn"
                 data-cursor="switch language"
                 style="
                   border: 1px solid var(--t-grn, #16a34a);
@@ -262,6 +382,7 @@
 
           <!-- TERMINAL BODY -->
           <div
+            class="t-body"
             style="
               padding: 36px 40px 60px;
               font-family: 'JetBrains Mono', monospace;
@@ -273,12 +394,13 @@
             <!-- HERO -->
             <div
               id="s-hero"
+              class="t-hero-mb"
               data-section="hero"
               data-screen-label="Hero"
               style="margin-bottom: 56px"
             >
               <div id="tw-output"></div>
-              <div style="display: flex; align-items: center; margin-top: 2px">
+              <div class="t-prompt" style="display: flex; align-items: center; margin-top: 2px">
                 <span
                   style="
                     color: var(--t-grn);
@@ -313,6 +435,7 @@
             <!-- ABOUT -->
             <div
               id="s-about"
+              class="t-section-mb"
               data-section="about"
               data-screen-label="About"
               style="
@@ -323,7 +446,8 @@
               "
             >
               <div
-                style="display: flex; align-items: center; margin-bottom: 12px"
+                class="t-prompt"
+                style="display: flex; align-items: center; flex-wrap: wrap; margin-bottom: 12px"
               >
                 <span
                   style="
@@ -353,6 +477,7 @@
                 <p style="margin-top: 4px">{{ about3 }}</p>
               </div>
               <pre
+                class="t-ascii"
                 style="
                   margin-top: 28px;
                   font-size: 10.5px;
@@ -377,6 +502,7 @@
             <!-- SKILLS -->
             <div
               id="s-skills"
+              class="t-section-mb"
               data-section="skills"
               data-screen-label="Skills"
               style="
@@ -387,7 +513,8 @@
               "
             >
               <div
-                style="display: flex; align-items: center; margin-bottom: 18px"
+                class="t-prompt"
+                style="display: flex; align-items: center; flex-wrap: wrap; margin-bottom: 18px"
               >
                 <span
                   style="
@@ -407,6 +534,7 @@
               <div style="display: flex; flex-direction: column; gap: 10px">
                 <sc-for list="{{ skills }}" as="sk" hint-placeholder-count="6">
                   <div
+                    class="t-skill-row"
                     style="
                       display: flex;
                       align-items: center;
@@ -423,6 +551,7 @@
                       >▸</span
                     >
                     <span
+                      class="t-skill-name"
                       style="
                         color: var(--t-txt);
                         min-width: 120px;
@@ -432,6 +561,7 @@
                       >{{ sk.name }}</span
                     >
                     <span
+                      class="t-skill-bar"
                       style="
                         color: var(--t-grn);
                         letter-spacing: 0.04em;
@@ -442,6 +572,7 @@
                       >{{ sk.bar }}</span
                     >
                     <span
+                      class="t-skill-level"
                       style="
                         color: var(--t-dim);
                         font-size: 11px;
@@ -457,6 +588,7 @@
             <!-- PROJECTS -->
             <div
               id="s-projects"
+              class="t-section-mb"
               data-section="projects"
               data-screen-label="Projects"
               style="
@@ -467,7 +599,8 @@
               "
             >
               <div
-                style="display: flex; align-items: center; margin-bottom: 18px"
+                class="t-prompt"
+                style="display: flex; align-items: center; flex-wrap: wrap; margin-bottom: 18px"
               >
                 <span
                   style="
@@ -486,6 +619,7 @@
               </div>
               <div style="display: flex; flex-direction: column">
                 <div
+                  class="t-proj-hdr"
                   style="
                     display: grid;
                     grid-template-columns: 120px 1fr auto;
@@ -504,6 +638,7 @@
                 </div>
                 <sc-for list="{{ projects }}" as="p" hint-placeholder-count="4">
                   <a
+                    class="t-proj-row"
                     href="{{ p.url }}"
                     target="_blank"
                     data-cursor="→ cat {{ p.slug }}/readme.md"
@@ -521,6 +656,7 @@
                     style-hover="background:var(--t-hover);"
                   >
                     <span
+                      class="t-proj-perm"
                       style="
                         color: var(--t-grn);
                         font-size: 11px;
@@ -552,6 +688,7 @@
                       </p>
                     </div>
                     <div
+                      class="t-proj-tags"
                       style="
                         display: flex;
                         flex-wrap: wrap;
@@ -586,6 +723,7 @@
             <!-- EXPERIENCE -->
             <div
               id="s-exp"
+              class="t-section-mb"
               data-section="experience"
               data-screen-label="Experience"
               style="
@@ -596,7 +734,8 @@
               "
             >
               <div
-                style="display: flex; align-items: center; margin-bottom: 18px"
+                class="t-prompt"
+                style="display: flex; align-items: center; flex-wrap: wrap; margin-bottom: 18px"
               >
                 <span
                   style="
@@ -619,8 +758,9 @@
                   as="job"
                   hint-placeholder-count="2"
                 >
-                  <div style="display: flex; gap: 16px">
+                  <div class="t-exp-row" style="display: flex; gap: 16px">
                     <span
+                      class="t-exp-hash"
                       style="
                         color: var(--t-dim);
                         font-size: 11px;
@@ -666,6 +806,30 @@
                       >
                         {{ job.desc }}
                       </p>
+                      <div class="t-exp-highlights" style="margin-top: 6px; max-width: 560px">
+                        <sc-for list="{{ job.highlights }}" as="h">
+                          <p
+                            style="
+                              display: flex;
+                              gap: 8px;
+                              color: var(--t-muted);
+                              font-size: 11.5px;
+                              line-height: 1.7;
+                              text-wrap: pretty;
+                              transition: color 0.25s;
+                            "
+                          >
+                            <span
+                              style="
+                                color: var(--t-grn);
+                                flex-shrink: 0;
+                                transition: color 0.25s;
+                              "
+                              >+</span
+                            >{{ h }}
+                          </p>
+                        </sc-for>
+                      </div>
                     </div>
                   </div>
                 </sc-for>
@@ -679,7 +843,8 @@
               data-screen-label="Contact"
             >
               <div
-                style="display: flex; align-items: center; margin-bottom: 16px"
+                class="t-prompt"
+                style="display: flex; align-items: center; flex-wrap: wrap; margin-bottom: 16px"
               >
                 <span
                   style="
@@ -697,6 +862,7 @@
                 >
               </div>
               <div
+                class="t-contact-card"
                 style="
                   background: var(--t-card);
                   border: 1px solid var(--t-card-bd);
@@ -731,7 +897,7 @@
                     >"<span
                       class="__cf_email__"
                       data-cfemail="45212c2a222a05203d24283529206b262a28"
-                      >[email&#160;protected]</span
+                      >diogowernek86@gmail.com</span
                     >"</a
                   ><span style="color: var(--t-dim); transition: color 0.25s"
                     >,</span
@@ -782,6 +948,7 @@
                 </p>
               </div>
               <a
+                class="t-cv-btn"
                 href="{{ cvHref }}"
                 download
                 data-cursor="→ download cv"
@@ -839,19 +1006,23 @@
           const dot  = document.getElementById('c-dot');
           const lbl  = document.getElementById('c-lbl');
           const root = document.getElementById('portfolio-root');
-          document.body.style.cursor = 'none';
+          const useCustomCursor = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
           let curSection = 'hero';
 
-          // ── Cursor tracking
-          document.addEventListener('mousemove', e => {
-            if (!dot || !lbl) return;
-            const x = e.clientX, y = e.clientY;
-            dot.style.left = x + 'px'; dot.style.top = y + 'px';
-            lbl.style.left = x + 'px'; lbl.style.top = y + 'px';
-            const el  = document.elementFromPoint(x, y);
-            const ctx = el && el.closest('[data-cursor]');
-            lbl.textContent = ctx ? ctx.getAttribute('data-cursor') : '[ ' + curSection + ' ]';
-          });
+          // ── Cursor tracking (desktop with a real mouse only — on touch
+          // devices the dot/label would get stuck at the last tap position)
+          if (useCustomCursor) {
+            document.body.style.cursor = 'none';
+            document.addEventListener('mousemove', e => {
+              if (!dot || !lbl) return;
+              const x = e.clientX, y = e.clientY;
+              dot.style.left = x + 'px'; dot.style.top = y + 'px';
+              lbl.style.left = x + 'px'; lbl.style.top = y + 'px';
+              const el  = document.elementFromPoint(x, y);
+              const ctx = el && el.closest('[data-cursor]');
+              lbl.textContent = ctx ? ctx.getAttribute('data-cursor') : '[ ' + curSection + ' ]';
+            });
+          }
 
           // ── Section tracker (fires when a section crosses the viewport's vertical center,
           // so it works regardless of how tall a given section is)
@@ -933,6 +1104,7 @@
           out.innerHTML = '';
           const runToken = ++this._twToken;
           const en = this.state.lang === 'en';
+          const isMobile = window.innerWidth <= 660;
           const lines = [
             { type: 'cmd', text: 'whoami' },
             { type: 'out', text: 'Diogo Araujo Wernek - Full Stack Developer' },
@@ -945,10 +1117,11 @@
           ];
           let li = 0, ci = 0, cur = null;
           const isDark = () => document.getElementById('portfolio-root')?.classList.contains('dark-mode');
+          const charDelay = isMobile ? 20 : 32;
 
           const mkPrompt = () => {
             const d = document.createElement('div');
-            d.style.cssText = 'display:flex;align-items:center;';
+            d.style.cssText = 'display:flex;align-items:center;flex-wrap:wrap;';
             d.innerHTML = '<span style="color:var(--t-grn);font-weight:600;transition:color .25s;">wernek@portfolio</span>'
               + '<span style="color:var(--t-dim);transition:color .25s;">:</span>'
               + '<span style="color:var(--t-blue);transition:color .25s;">~</span>'
@@ -970,12 +1143,12 @@
               }
               cur.lastChild.textContent = line.text.slice(0, ci);
               ci++;
-              if (ci <= line.text.length) setTimeout(step, 32 + Math.random() * 38);
+              if (ci <= line.text.length) setTimeout(step, charDelay + Math.random() * 38);
               else { li++; ci = 0; setTimeout(step, 220); }
             } else {
               if (ci === 0) {
                 cur = document.createElement('div');
-                cur.style.cssText = 'color:var(--t-muted);margin-bottom:8px;transition:color .25s;';
+                cur.style.cssText = 'color:var(--t-muted);margin-bottom:8px;transition:color .25s;word-break:break-word;';
                 out.appendChild(cur);
               }
               cur.textContent = line.text.slice(0, ci);
@@ -1033,18 +1206,69 @@
                 stack: ['React','TypeScript','Vite','Tailwind CSS 4','Storybook','Vitest','Playwright'] },
             ],
             experience: [
-              { hash: 'a1b2c3d',
-                msg:     en ? 'feat: join as Full Stack Developer'  : 'feat: ingressar como Dev Full Stack',
-                company: en ? 'Tech Company'                        : 'Empresa Tech',
-                period: '2023 – Present',
-                desc:   en ? 'Scalable React + Node.js apps. Led microservices migration - latency −60%.'
-                           : 'Apps React + Node.js escaláveis. Migração para microsserviços - latência −60%.' },
-              { hash: 'e4f5g6h',
-                msg:     en ? 'feat: first developer role'          : 'feat: primeiro cargo de desenvolvedor',
-                company: 'Startup',
-                period:  '2021 – 2023',
-                desc:   en ? 'REST APIs with Node.js and Python. React frontend, MySQL database for a growing SaaS.'
-                           : 'APIs REST com Node.js e Python. Frontend React e MySQL para SaaS em crescimento.' },
+              { hash: 'f3a91c2',
+                msg:     en ? 'feat: Full-Stack Developer — Node.js & React'
+                            : 'feat: Dev Full-Stack — Node.js & React',
+                company: en ? 'Sudeste Online — Specialist in Chemical Product Legislation'
+                            : 'Sudeste Online — Especialista em Legislação de Produtos Químicos',
+                period:  en ? 'Oct 2024 – Present' : 'Out 2024 – Presente',
+                desc:    en ? 'Developed and maintained REST APIs in Node.js/Nest.js and interfaces in React.js for the issuance and management of regulatory documents.'
+                            : 'Desenvolvi e mantive APIs REST em Node.js/Nest.js e interfaces em React.js para emissão e gestão de documentos regulatórios.',
+                highlights: en ? [
+                  'Automated SDS (Safety Data Sheet) issuance pipelines, reducing manual steps and increasing process reliability.',
+                  'Refactored legacy back-end and front-end modules with a focus on Clean Code, maintainability, and separation of concerns.',
+                  'Optimized the performance of critical functions through improvements in queries, business logic, and component rendering.',
+                  'Implemented automated tests and development standards, facilitating code reviews and reducing regressions.',
+                ] : [
+                  'Automatizei pipelines de emissão de FISPQ (Ficha de Informações de Segurança de Produtos Químicos), reduzindo etapas manuais e aumentando a confiabilidade do processo.',
+                  'Refatorei módulos legados de back-end e front-end com foco em Clean Code, manutenibilidade e separação de responsabilidades.',
+                  'Otimizei a performance de funções críticas por meio de melhorias em queries, regras de negócio e renderização de componentes.',
+                  'Implementei testes automatizados e padrões de desenvolvimento, facilitando code reviews e reduzindo regressões.',
+                ] },
+              { hash: 'b8e02f4',
+                msg:     en ? 'feat: Full-Stack Developer — Node.js & React'
+                            : 'feat: Dev Full-Stack — Node.js & React',
+                company: en ? 'AgroReceita — Intelligent Agronomic Prescription System (SaaS)'
+                            : 'AgroReceita — Sistema Inteligente de Receituário Agronômico (SaaS)',
+                period:  en ? 'Oct 2024 – Present' : 'Out 2024 – Presente',
+                desc:    '',
+                highlights: en ? [
+                  'Developed new end-to-end features in Node.js, TypeScript, and React.js within a full-stack architecture with REST APIs.',
+                  'Implemented transaction control in a SaaS environment, ensuring data integrity and security between front-end and back-end.',
+                  'Refactored critical back-end and front-end sections, applying Clean Code and design patterns.',
+                  'Optimized the processing of 900 thousand records on the back-end and their rendering on the front-end, reducing the time from 40s to 5s (≈ 87% performance improvement).',
+                  'Improved queries in the relational database (MySQL), directly impacting product scalability.',
+                  'Used TailwindCSS to build responsive and consistent interfaces.',
+                  "Participated in code reviews, raising the team's technical quality and promoting good development practices.",
+                ] : [
+                  'Desenvolvi novas funcionalidades ponta a ponta em Node.js, TypeScript e React.js, dentro de uma arquitetura full-stack com APIs REST.',
+                  'Implementei controle de transações em um ambiente SaaS, garantindo integridade e segurança dos dados entre front-end e back-end.',
+                  'Refatorei seções críticas de back-end e front-end, aplicando Clean Code e design patterns.',
+                  'Otimizei o processamento de 900 mil registros no back-end e sua renderização no front-end, reduzindo o tempo de 40s para 5s (≈ 87% de melhoria de performance).',
+                  'Aprimorei queries no banco de dados relacional (MySQL), impactando diretamente a escalabilidade do produto.',
+                  'Utilizei TailwindCSS para construir interfaces responsivas e consistentes.',
+                  'Participei de code reviews, elevando a qualidade técnica do time e promovendo boas práticas de desenvolvimento.',
+                ] },
+              { hash: 'a7c88de',
+                msg:     en ? 'feat: Development with Artificial Intelligence'
+                            : 'feat: Desenvolvimento com Inteligência Artificial',
+                company: 'Freelancer',
+                period:  en ? '2024 – Present' : '2024 – Presente',
+                desc:    en ? 'Applied use of AI in the full-stack development workflow.'
+                            : 'Aplicação de IA no fluxo de desenvolvimento full-stack.',
+                highlights: en ? [
+                  'Use Claude Code (CLI) as a central tool in the development cycle, accelerating back-end and front-end delivery with AI-assisted code generation and intelligent refactoring.',
+                  'Apply Claude for code review, technical documentation, debugging, and architectural decision-making in both layers of the application.',
+                  'Configure and use MCPs (Model Context Protocol) to integrate AI agents into project contexts and external tools.',
+                  'Develop workflows with AI Agents and Skills in Claude Code to automate repetitive tasks and development workflows.',
+                  'Combine N8N with generative AI to build intelligent end-to-end automations, integrating systems and eliminating manual processes.',
+                ] : [
+                  'Uso o Claude Code (CLI) como ferramenta central no ciclo de desenvolvimento, acelerando entregas de back-end e front-end com geração de código assistida por IA e refatoração inteligente.',
+                  'Aplico o Claude para code review, documentação técnica, debugging e decisões de arquitetura em ambas as camadas da aplicação.',
+                  'Configuro e utilizo MCPs (Model Context Protocol) para integrar agentes de IA a contextos de projeto e ferramentas externas.',
+                  'Desenvolvo workflows com AI Agents e Skills no Claude Code para automatizar tarefas repetitivas e fluxos de desenvolvimento.',
+                  'Combino N8N com IA generativa para construir automações inteligentes ponta a ponta, integrando sistemas e eliminando processos manuais.',
+                ] },
             ],
           };
         }
