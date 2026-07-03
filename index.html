@@ -3,6 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+CjxyZWN0IHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgcng9IjE0IiBmaWxsPSIjMGQxMTE3Ii8+Cjx0ZXh0IHg9IjMyIiB5PSI0NSIgZm9udC1mYW1pbHk9IidKZXRCcmFpbnMgTW9ubycsbW9ub3NwYWNlIiBmb250LXNpemU9IjM0IiBmb250LXdlaWdodD0iNzAwIiBmaWxsPSIjMTZhMzRhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5XPC90ZXh0Pgo8L3N2Zz4K"
+    />
     <script src="./support.js"></script>
   </head>
   <body>
@@ -20,6 +25,8 @@
           }
           html {
             scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(22, 163, 74, 0.45) transparent;
           }
           body {
             overflow-x: hidden;
@@ -44,11 +51,21 @@
             background: rgba(22, 163, 74, 0.25);
           }
           ::-webkit-scrollbar {
-            width: 6px;
+            width: 10px;
+            background: transparent;
+          }
+          ::-webkit-scrollbar-track {
+            background: transparent;
           }
           ::-webkit-scrollbar-thumb {
-            background: #ccc;
-            border-radius: 3px;
+            background: rgba(22, 163, 74, 0.45);
+            border-radius: 999px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+          }
+          ::-webkit-scrollbar-thumb:hover {
+            background: rgba(22, 163, 74, 0.7);
+            background-clip: padding-box;
           }
           @keyframes blink {
             0%,
